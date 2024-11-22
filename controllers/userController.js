@@ -2,6 +2,8 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+const JWT_SECRET = 'my_secret_key'
+
 exports.register = async (req, res) => {
   const { username, senha, preferenciaTipoRecarga, preferenciaHorario } = req.body;
 
@@ -33,8 +35,8 @@ exports.login = async (req, res) => {
     if (!senhaValida) return res.status(401).json({ error: 'Senha inválida.' });
 
     // Gera o token JWT
-    const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRES_IN,
+    const token = jwt.sign({ id: user.id, username: user.username }, JWT_SECRET, {
+      expiresIn: '2h',
     });
 
     // Retorna o username e o token
