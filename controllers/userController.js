@@ -58,6 +58,7 @@ exports.getUsers = async (req, res) => {
 
 exports.updatePreferences = async (req, res) => {
   const { id } = req.params;
+  console.log(id)
   const { preferenciaTipoRecarga, preferenciaHorario } = req.body;
 
   await User.update({ preferenciaTipoRecarga, preferenciaHorario }, { where: { id } });
